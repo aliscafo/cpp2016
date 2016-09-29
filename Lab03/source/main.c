@@ -35,10 +35,10 @@ void add_position(intrusive_list_t* l, int x, int y) {
   pos->y = y;
   add_node(l, &(pos->node));
 }
-
+                                                                                                    -
 void show_all_positions(intrusive_list_t* l) {
   if (get_length(l) == 0) {
-    printf("<empty line>\n");
+    printf("\n");
     return;
   }
 
