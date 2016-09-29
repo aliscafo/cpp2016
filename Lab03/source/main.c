@@ -38,7 +38,7 @@ void add_position(intrusive_list_t* l, int x, int y) {
 
 void show_all_positions(intrusive_list_t* l) {
   if (get_length(l) == 0) {
-    printf("Empty\n");
+    printf("<empty line>\n");
     return;
   }
 
@@ -72,7 +72,7 @@ void remove_all_positions(intrusive_list_t* l) {
     free(pos);
 
     if (l->head == NULL || t == l->head)
-      break;
+      break;        
 
     t = t->next;
   }
@@ -121,7 +121,10 @@ int main() {
       printf("%d\n", get_length(&l));
     }
     else if (strcmp(q, ex) == 0)
+    {
       flag = 0;
+      remove_all_positions(&l);
+    }
     else
       printf("Unknown command\n");
 
