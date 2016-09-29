@@ -11,7 +11,7 @@ struct position_node {
 void remove_position(intrusive_list_t* l, int x, int y) {
   if (get_length(l) == 0) { return; }  
   
-  intrusive_node_t* t = l->head->next;  
+  intrusive_node_t* t = l->head;  
   position_node_t* pos;
 
   while (1) {
@@ -19,13 +19,23 @@ void remove_position(intrusive_list_t* l, int x, int y) {
     
     if (check(x, y)) {
       remove_node(l, t);
+      t = t->next;
       free(pos);
     }
-    
-    if (l->head == NULL || t == l->head)
-      break;
+    else
+      t = t->next;
 
-    t = t->next;
+    if (l->head == NULL)
+      break;
+    if (t == l->head)
+    {
+      pos = container_of(t, position_node_t, node);
+      if (check(x, y)) {
+        remove_node(l, t);
+        free(pos);
+      }
+      break;
+    }
   }        
 } 
 
@@ -35,7 +45,7 @@ void add_position(intrusive_list_t* l, int x, int y) {
   pos->y = y;
   add_node(l, &(pos->node));
 }
-                                                                                                    -
+                                                                                                   
 void show_all_positions(intrusive_list_t* l) {
   if (get_length(l) == 0) {
     printf("\n");
@@ -60,21 +70,27 @@ void show_all_positions(intrusive_list_t* l) {
 }
 
 void remove_all_positions(intrusive_list_t* l) {
-  if (get_length(l) == 0) { return; }
-
-  intrusive_node_t* t = l->head->next;
+  if (get_length(l) == 0) { return; }  
+  
+  intrusive_node_t* t = l->head;  
   position_node_t* pos;
 
   while (1) {
     pos = container_of(t, position_node_t, node);
     
     remove_node(l, t);
+    t = t->next;
     free(pos);
 
-    if (l->head == NULL || t == l->head)
-      break;        
-
-    t = t->next;
+    if (l->head == NULL)
+      break;
+    if (t == l->head)
+    {
+      pos = container_of(t, position_node_t, node);
+      remove_node(l, t);
+      free(pos);
+      break;
+    }
   }
 }
 
