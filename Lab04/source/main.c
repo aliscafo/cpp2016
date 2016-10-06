@@ -68,7 +68,8 @@ int main(int argc, char* argv[])
         *it = 0;
       }
 
-      mergesort(*array, n, MAXN, compare_str);
+      if (n != 0)
+        mergesort(*array, n, MAXN, compare_str);
 
       for (i = 0; i < n; i++)
         printf("%s ", array[i]);
