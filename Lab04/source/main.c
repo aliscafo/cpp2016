@@ -1,7 +1,7 @@
 #include "../include/merge_sort.h"
 #include "../include/ms_cli.h" 
 #include <stdlib.h>
-#define MAXN 50
+#define MAXN (int)1e3
 
 int main(int argc, char* argv[])
 {

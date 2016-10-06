@@ -24,6 +24,8 @@ void merge(void* a, void* b, int a_num, int b_num, size_t size, int (*compar)(co
 
   for (i = 0; i < a_num + b_num; i++)
     copy((char*)((char*)a + i * size), (char*)(res + i * size), size);
+
+  free(res);
 }
 
 
