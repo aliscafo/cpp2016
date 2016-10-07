@@ -53,31 +53,12 @@ int main(int argc, char* argv[])
       break;
     }
     case 's': {
-      char** array = (char**)malloc(sizeof(char*) * n);
-      char* strings = (char*)malloc(sizeof(char) * MAXN * n);
-
-      for (i = 0; i < n; i++)
-        array[i] = strings + i * MAXN;
-
-      for (i = 0; i < n; i++) {
-        char* it = array[i];
-        int j = 0;
-
-        while (argv[2 + i][j])
-          *it = argv[2 + i][j], it++, j++;
-        *it = 0;
-      }
-
       if (n != 0)
-        mergesort(*array, n, MAXN, compare_str);
+        mergesort(argv + 2, n, sizeof(*argv), compare_str);
 
-      for (i = 0; i < n; i++)
-        printf("%s ", array[i]);
-      printf("\n");
-      
-      free(strings);
-      free(array);
-          
+      for (i = 2; i < n + 2; i++)
+        printf("%s ", *(argv + i));
+                  
       break;
     }
     default:
