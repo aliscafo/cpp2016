@@ -8,17 +8,17 @@
 MyVector::MyVector() {
   _cp = 2;
   _sz = 0;
-  _data = new int[2];
+  _data = (int*)malloc(2 * sizeof(int));
 }
 
 MyVector::MyVector(std::size_t init_capacity) {
   _cp = init_capacity;
   _sz = 0;
-  _data = new int[init_capacity];
+  _data = (int*)malloc(init_capacity * sizeof(int));
 }
 
 MyVector::~MyVector() {
-  delete []_data;
+  free(_data);
 }
 
 void MyVector::set(std::size_t index, int value) {
@@ -41,8 +41,12 @@ std::size_t MyVector::capacity() {
 
 void MyVector::reserve(std::size_t new_capacity) {
   if (_cp < new_capacity) {
-    _data = (int*)realloc(_data, new_capacity * sizeof(int));
-    _cp = new_capacity;
+    size_t new_capacity_pow = _cp;
+    while (new_capacity_pow < new_capacity)
+      new_capacity_pow *= 2;
+    
+    _data = (int*)realloc(_data, new_capacity_pow * sizeof(int));
+    _cp = new_capacity_pow;
   }  
 }
 
