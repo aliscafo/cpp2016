@@ -71,7 +71,8 @@ void MyVector::push_back(int value) {
 void MyVector::insert(std::size_t index, int value) {
   _sz++;
   assert(0 <= index && index < _sz);
-  reserve(_sz);
+  if (_sz > _cp)
+    reserve(_cp * 2);
   for (size_t i = _sz - 1; i > index; i--)
     _data[i] = _data[i - 1];
   set(index, value);
