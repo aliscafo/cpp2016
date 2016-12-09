@@ -1,5 +1,6 @@
 #include "scheme.h"
 #include <cassert>
+#include <cstdio>
 
 Scheme::Scheme(int capacity) {
   figures_ = new Figure*[capacity];
@@ -13,7 +14,6 @@ Scheme::~Scheme() {
 
 
 void Scheme::push_back_figure(Figure* fg) {
-  //assert(sz < capacity);
   figures_[sz] = fg;
   sz++;  
 }
